@@ -2,6 +2,7 @@ package ru.karyeragame.paymentsystem.bankaccount.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.karyeragame.paymentsystem.bankaccount.service.BankAccountService;
 import ru.karyeragame.paymentsystem.enums.BankAccountType;
@@ -14,6 +15,7 @@ import java.math.BigDecimal;
 @Slf4j
 public class BankAccountController {
 
+    @Autowired
     private final BankAccountService service;
 
     @GetMapping("/{userId}/balance")

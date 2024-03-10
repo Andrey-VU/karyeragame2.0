@@ -4,5 +4,15 @@ package ru.karyeragame.paymentsystem.mailsender.resource;
  * Тестовый класс для проверки emailSender
  */
 
-public record EmailMessage(String to, String subject, String message, String path) {
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+public record EmailMessage(
+        @Email
+        @NotBlank
+        String to,
+        String subject,
+        String message,
+        @NotBlank
+        String path) {
 }

@@ -1,5 +1,6 @@
 package ru.karyeragame.paymentsystem.mailsender.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import ru.karyeragame.paymentsystem.mailsender.service.EmailService;
  * Тестовый контроллер
  */
 
+@Tag(name = "email-controller", description = "Тестовый контроллер")
 @RestController
 @RequiredArgsConstructor
 public class EmailController {
