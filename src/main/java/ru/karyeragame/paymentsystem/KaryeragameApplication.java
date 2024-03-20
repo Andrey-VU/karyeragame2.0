@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.karyeragame.paymentsystem.user.dto.NewUserDto;
+import ru.karyeragame.paymentsystem.user.model.ProfileStatus;
+import ru.karyeragame.paymentsystem.user.model.Roles;
+import ru.karyeragame.paymentsystem.user.model.User;
 import ru.karyeragame.paymentsystem.user.repository.UserRepository;
 import ru.karyeragame.paymentsystem.user.service.UserService;
 
@@ -25,17 +27,17 @@ public class KaryeragameApplication {
         return args ->
         {
             try {
-                service.register(
-                        NewUserDto.builder()
-                                .username("admin")
-                                .email("admin@gmail.com")
-                                .password("psw1")
-                                .avatar(2L)
-                                .build());
-                service.makeUserAdmin(repository.findByEmail("admin@gmail.com").get().getId());
+                User admin = new User();
+                admin.setName("admin");
+                admin.setPassword(encoder.encode("psw123"));
+                admin.setEmail("admin@gmail.com");
+                admin.setStatus(ProfileStatus.ACTIVE);
+                admin.setRole(Roles.ADMIN);
+                repository.save(admin);
             } catch (DataIntegrityViolationException e) {
-                log.info("Первый администратор уже есть в базе данных. Повторное добавление отменено");
+                log.info("The first administrator is already in the database. Addition canceled");
             }
         };
     }
+}
 

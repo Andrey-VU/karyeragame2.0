@@ -2,17 +2,28 @@ package ru.karyeragame.paymentsystem.user.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import ru.karyeragame.paymentsystem.avatar.model.Avatar;
+import ru.karyeragame.paymentsystem.user.dto.FullUserDto;
 import ru.karyeragame.paymentsystem.user.dto.NewUserDto;
-import ru.karyeragame.paymentsystem.user.dto.UserDto;
-import ru.karyeragame.paymentsystem.user.model.Avatar;
+import ru.karyeragame.paymentsystem.user.dto.ShortUserDto;
 import ru.karyeragame.paymentsystem.user.model.User;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-    UserDto toDto(User user);
+    @Mapping(target = "avatarId", source = "avatar.id")
+    @Mapping(target = "removedBy", source = "user.removedBy.id")
+    FullUserDto toFullUserDto(User user);
 
-    @Mapping(source = "avatar", target = "avatar")
-    User toEntity(NewUserDto newUserDto, Avatar avatar);
+    ShortUserDto toShortDto(User user);
 
-    User toEntity(UserDto userDto);
+    List<ShortUserDto> toShortDtoList(List<User> user);
+
+    User toEntity(NewUserDto newUserDto);
+
+    @Mapping(target = "avatar", source = "avatar")
+    @Mapping(ignore = true, target = "removedBy")
+    @Mapping(target = "id", source = "dto.id")
+    User toEntity(FullUserDto dto, Avatar avatar);
 }

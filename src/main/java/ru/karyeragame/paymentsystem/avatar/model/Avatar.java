@@ -1,4 +1,4 @@
-package ru.karyeragame.paymentsystem.user.model;
+package ru.karyeragame.paymentsystem.avatar.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -13,10 +13,14 @@ import lombok.ToString;
 @ToString
 @RequiredArgsConstructor
 public class Avatar {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String url;
 
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 }

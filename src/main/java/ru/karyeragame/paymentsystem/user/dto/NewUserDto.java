@@ -10,15 +10,18 @@ import lombok.Data;
 @Builder
 @Data
 public class NewUserDto {
-    @Pattern(regexp = "^[\\p{L}\\p{N}\\p{P}\\p{Z}]+$") //кириллица, латиница, 0-9, видимые символы
+    @Pattern(regexp = "^(?! )[а-яА-Яa-zA-Z0-9\\s\\S]+$")
+    //кириллица, латиница, 0-9, видимые символы
     @NotBlank
     @Size(min = 1, max = 20)
-    private String username;
-    @Email
+    private String name;
+    // латиница (верхний и нижний регистры), 0-9, символы . _ - допустимы, точка не первый или последний символ
+    @Email(regexp = "^(?! )[a-zA-Z0-9\\s\\S]+@[a-zA-Z0-9\\s\\S]+\\.[a-zA-Z0-9\\s\\S]{2,}$")
     @NotBlank
+    @Size(min = 6, max = 255)
     private String email;
-    @Pattern(regexp = "^[\\p{ASCII}\\p{Punct}\\p{Graph}]+$")// латиница, 0-9, видимые символы
+    @Pattern(regexp = "^[^\\s][\\p{ASCII}\\p{Punct}\\p{Graph}]+$")// латиница, 0-9, видимые символы
     @NotBlank
+    @Size(min = 5, max = 100)
     private String password;
-    private Long avatar;
 }
