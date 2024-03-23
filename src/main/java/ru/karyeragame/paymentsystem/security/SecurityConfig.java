@@ -42,7 +42,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 mvc.pattern("/"),
-                                mvc.pattern("*/auth/**")).permitAll()
+                                mvc.pattern("/swagger-ui/**"),
+                                mvc.pattern("/v3/api-docs/**"),
+                                mvc.pattern("/swagger-ui.html"),
+                                mvc.pattern("*/auth/**"))
+                        .permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/h2/**")).permitAll()
                         .requestMatchers(
                                 mvc.pattern("/users/**"),

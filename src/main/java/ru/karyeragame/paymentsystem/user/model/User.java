@@ -22,30 +22,41 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String name;
+
     @Column(unique = true, nullable = false)
     private String email;
+
     @Column(nullable = false)
     private String password;
+
     @ManyToOne
     @JoinColumn(name = "avatar_id")
     private Avatar avatar;
+
     @Enumerated(EnumType.STRING)
     private Roles role;
+
     @Column(nullable = false, name = "created_on")
     @CreationTimestamp
     private LocalDateTime createdOn;
+
     @Enumerated(EnumType.STRING)
     private ProfileStatus status;
+
     @Column(name = "removed_on")
     private LocalDateTime removedOn;
+
     @ManyToOne
     @JoinColumn(name = "removed_by")
     private User removedBy;
+
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
 

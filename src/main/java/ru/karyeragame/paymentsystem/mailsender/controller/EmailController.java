@@ -1,5 +1,6 @@
 package ru.karyeragame.paymentsystem.mailsender.controller;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import ru.karyeragame.paymentsystem.mailsender.service.EmailService;
  * Тестовый контроллер
  */
 
+@Hidden
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/send-email")

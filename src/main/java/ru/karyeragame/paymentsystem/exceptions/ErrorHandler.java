@@ -1,5 +1,6 @@
 package ru.karyeragame.paymentsystem.exceptions;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ public class ErrorHandler {
 
 
     //400 Bad Request
+    @Hidden
     @ExceptionHandler({
             InvalidFormatException.class,
             MethodArgumentNotValidException.class,
@@ -30,6 +32,7 @@ public class ErrorHandler {
     }
 
     //402 Payment Required
+    @Hidden
     @ExceptionHandler({
             NotEnoughMoneyPaymentRequiredException.class
     })
@@ -39,6 +42,7 @@ public class ErrorHandler {
     }
 
     //403 Forbidden
+    @Hidden
     @ExceptionHandler({
             NotEnoughRightsException.class
     })
@@ -47,16 +51,8 @@ public class ErrorHandler {
         return handleErrorResponse(HttpStatus.FORBIDDEN, e);
     }
 
-    //500 INTERNAL_SERVER_ERROR
-    @ExceptionHandler({
-            LoadDataException.class
-    })
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleInternalServerErrorException(final Exception e) {
-        return handleErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, e);
-    }
-
     //404 Not Found
+    @Hidden
     @ExceptionHandler({
             NotFoundException.class,
             EntityNotFoundException.class,
@@ -68,12 +64,23 @@ public class ErrorHandler {
     }
 
     //409 Conflict
+    @Hidden
     @ExceptionHandler({
             DataConflictException.class
     })
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponse handleConflictException(final Exception e) {
         return handleErrorResponse(HttpStatus.CONFLICT, e);
+    }
+
+    //500 Internal server error
+    @Hidden
+    @ExceptionHandler({
+            LoadDataException.class
+    })
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse handleInternalServerErrorException(final Exception e) {
+        return handleErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, e);
     }
 
     private ErrorResponse handleErrorResponse(HttpStatus status, Exception e) {

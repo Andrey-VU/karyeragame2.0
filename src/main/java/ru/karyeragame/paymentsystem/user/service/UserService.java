@@ -167,7 +167,7 @@ public class UserService {
     public FullUserDto recoverUser(Long id) {
         User user = getUserEntity(id);
         if (!user.getStatus().equals(ProfileStatus.ARCHIVE)) {
-            throw new DataConflictException("User with id %d is not i archive", id);
+            throw new DataConflictException("User with id %d is not in archive", id);
         }
         user.setStatus(ProfileStatus.WAITING);
         user.setRemovedOn(null);
